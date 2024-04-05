@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\RuntimeJob;
+use App\Jobs\GameJob;
 use Illuminate\Console\Command;
 
 class RuntimeCommand extends Command
@@ -26,6 +26,6 @@ class RuntimeCommand extends Command
      */
     public function handle()
     {
-        RuntimeJob::dispatch(1);
+        GameJob::dispatch(1);
     }
 }

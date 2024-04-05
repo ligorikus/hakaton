@@ -2,13 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Services\Api\Interfaces\GameServiceInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class RuntimeJob implements ShouldQueue
+class GameJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -23,11 +24,13 @@ class RuntimeJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function handle(GameServiceInterface $gameService): void
     {
-        if ($this->item === 10)
+        $result = $gameService->test();
+        var_dump($result);
+        if ($this->item === 1)
             return;
         var_dump($this->item);
-        RuntimeJob::dispatch($this->item+1);
+        GameJob::dispatch($this->item+1);
     }
 }
