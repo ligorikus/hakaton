@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Services\Api\Interfaces\GameServiceInterface;
+use App\Services\Handler\Interfaces\HandlerServiceInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,7 +17,7 @@ class GameJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(private $item)
+    public function __construct()
     {
         //
     }
@@ -24,13 +25,15 @@ class GameJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(GameServiceInterface $gameService): void
+    public function handle(HandlerServiceInterface $handlerService): void
     {
-        $result = $gameService->test();
-        var_dump($result);
-        if ($this->item === 1)
-            return;
-        var_dump($this->item);
+        $handlerService->getCurrentRound();
+        $game = $handlerService->getCurrentGame();
+
+        if (!$game->isUniverseFetched()) {
+            $handlerService->fetchUniverse($game);
+        }
+
         GameJob::dispatch($this->item+1);
     }
 }

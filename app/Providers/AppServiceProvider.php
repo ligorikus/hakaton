@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Jobs\GameJob;
 use App\Services\Api\GameService;
 use App\Services\Api\Interfaces\GameServiceInterface;
+use App\Services\Handler\HandlerService;
+use App\Services\Handler\Interfaces\HandlerServiceInterface;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
@@ -25,8 +27,13 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             return new GameService($pendingRequest);
         });
+
+        $this->app->bind(HandlerServiceInterface::class, HandlerService::class);
+
         $this->app->bindMethod([GameJob::class, 'handle'], function (GameJob $job, Application $app) {
-            return $job->handle($app->make(GameServiceInterface::class));
+            return $job->handle(
+                $app->make(HandlerServiceInterface::class)
+            );
         });
     }
 

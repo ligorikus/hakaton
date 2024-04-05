@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Round;
 use App\Services\Api\Dto\RoundDto;
 use App\Services\Api\Interfaces\GameServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -40,8 +41,8 @@ class GetRounds extends Command
         foreach ($rounds as $round) {
             Round::create([
                 'name' => $round->getName(),
-                'start_at' => $round->getStartAt(),
-                'end_at' => $round->getEndAt(),
+                'start_at' => Carbon::make($round->getStartAt()),
+                'end_at' => Carbon::make($round->getEndAt()),
                 'is_current' => $round->isCurrent(),
                 'planet_count' => $round->getPlanetCount(),
             ]);

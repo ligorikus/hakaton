@@ -3,6 +3,7 @@
 namespace App\Services\Api\Interfaces;
 
 use App\Services\Api\Dto\ResetGameDto;
+use App\Services\Api\Dto\TravelDto;
 use App\Services\Api\Dto\UniverseDto;
 
 interface GameServiceInterface
@@ -13,7 +14,7 @@ interface GameServiceInterface
 
     public function universe(): UniverseDto;
 
-    public function travel(array $planets);
+    public function travel(array $planets): TravelDto;
 
     public function collect(array $garbage);
 }

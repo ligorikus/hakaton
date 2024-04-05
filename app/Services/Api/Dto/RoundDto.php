@@ -2,22 +2,26 @@
 
 namespace App\Services\Api\Dto;
 
+use Carbon\Carbon;
+
 class RoundDto
 {
     public function __construct(
         private string $name,
-        private \DateTime $startAt,
-        private \DateTime $endAt,
+        private Carbon $startAt,
+        private Carbon $endAt,
         private int $planetCount,
         private bool $isCurrent,
+
+        private int $id = 0,
     )
     {
     }
 
     /**
-     * @return \DateTime
+     * @return Carbon
      */
-    public function getEndAt(): \DateTime
+    public function getEndAt(): Carbon
     {
         return $this->endAt;
     }
@@ -47,10 +51,20 @@ class RoundDto
     }
 
     /**
-     * @return \DateTime
+     * @return Carbon
      */
-    public function getStartAt(): \DateTime
+    public function getStartAt(): Carbon
     {
         return $this->startAt;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 }

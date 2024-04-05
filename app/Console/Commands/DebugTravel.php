@@ -27,7 +27,7 @@ class DebugTravel extends Command
     public function handle(GameServiceInterface $gameService)
     {
         dd($gameService->travel([
-            'Moen'
+            'Krajcik',
         ]));
     }
 }

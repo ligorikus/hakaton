@@ -4,6 +4,7 @@ namespace App\Services\Api;
 
 use App\Services\Api\Dto\ResetGameDto;
 use App\Services\Api\Dto\RoundDto;
+use App\Services\Api\Dto\TravelDto;
 use App\Services\Api\Dto\UniverseDto;
 use App\Services\Api\Interfaces\GameServiceInterface;
 use App\Services\Api\Methods\Collect;
@@ -38,7 +39,7 @@ class GameService implements GameServiceInterface
         return Universe::handle($this->request);
     }
 
-    public function travel(array $planets)
+    public function travel(array $planets): TravelDto
     {
         return Travel::handle($this->request, ['planets' => $planets]);
     }
