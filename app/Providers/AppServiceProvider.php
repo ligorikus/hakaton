@@ -17,7 +17,12 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(GameServiceInterface::class, function () {
-            $pendingRequest = Http::baseUrl(config('game.url'));
+            $pendingRequest = Http::baseUrl(config('game.url'))
+                ->withHeaders([
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X-Auth-Token' => config('game.token'),
+                ]);
             return new GameService($pendingRequest);
         });
         $this->app->bindMethod([GameJob::class, 'handle'], function (GameJob $job, Application $app) {
