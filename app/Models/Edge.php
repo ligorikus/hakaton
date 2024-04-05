@@ -10,8 +10,8 @@ class Edge extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vertex1',
-        'vertex2',
+        'departure',
+        'destination',
         'cost'
     ];
 

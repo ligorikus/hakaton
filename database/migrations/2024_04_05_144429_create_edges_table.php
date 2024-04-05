@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('edges', function (Blueprint $table) {
             $table->id();
-            $table->string('vertex1');
-            $table->string('vertex2');
+            $table->string('departure');
+            $table->string('destination');
             $table->string('cost');
         });
     }

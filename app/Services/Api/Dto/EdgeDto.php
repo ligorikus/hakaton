@@ -4,33 +4,33 @@ namespace App\Services\Api\Dto;
 
 class EdgeDto
 {
-    private string $vertex1;
-    private string $vertex2;
+    private string $departure;
+    private string $destination;
     private int $cost;
 
     public function __construct(
         array $edge
     )
     {
-        $this->vertex1 = $edge[0];
-        $this->vertex2 = $edge[1];
+        $this->departure = $edge[0];
+        $this->destination = $edge[1];
         $this->cost = $edge[2];
     }
 
     /**
      * @return string
      */
-    public function getVertex1(): string
+    public function getDeparture(): string
     {
-        return $this->vertex1;
+        return $this->departure;
     }
 
     /**
      * @return string
      */
-    public function getVertex2(): string
+    public function getDestination(): string
     {
-        return $this->vertex2;
+        return $this->destination;
     }
 
     /**
