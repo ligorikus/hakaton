@@ -10,10 +10,12 @@ class GarbageBuilder
     {
         $result = [];
         foreach ($garbage as $key => $value) {
-            $result[] = new GarbageDto(
+            $item = new GarbageDto(
                 $key,
                 $value
             );
+            $item->toDB();
+            $result[] = $item;
         }
         return $result;
     }

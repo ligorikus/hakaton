@@ -33,7 +33,5 @@ class GameJob implements ShouldQueue
         if (!$game->isUniverseFetched()) {
             $handlerService->fetchUniverse($game);
         }
-
-        GameJob::dispatch($this->item+1);
     }
 }

@@ -9,7 +9,7 @@ class GameDto
     public function __construct(
         private int $id,
         private int $roundId,
-        private bool $universeFetched
+        private bool $universeFetched = false
     )
     {
     }

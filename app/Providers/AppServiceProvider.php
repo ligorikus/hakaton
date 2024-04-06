@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Jobs\GameJob;
 use App\Services\Api\GameService;
 use App\Services\Api\Interfaces\GameServiceInterface;
+use App\Services\GarbageCollector\GarbageCollectorService;
+use App\Services\GarbageCollector\Interfaces\GarbageCollectorInterface;
 use App\Services\Handler\HandlerService;
 use App\Services\Handler\Interfaces\HandlerServiceInterface;
 use Illuminate\Foundation\Application;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(HandlerServiceInterface::class, HandlerService::class);
+        $this->app->bind(GarbageCollectorInterface::class, GarbageCollectorService::class);
 
         $this->app->bindMethod([GameJob::class, 'handle'], function (GameJob $job, Application $app) {
             return $job->handle(

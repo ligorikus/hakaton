@@ -11,6 +11,8 @@ use App\Services\Api\Dto\UniverseDto;
 use App\Services\Api\Interfaces\GameServiceInterface;
 use App\Services\Handler\Dto\GameDto;
 use App\Services\Handler\Interfaces\HandlerServiceInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class HandlerService implements HandlerServiceInterface
@@ -19,8 +21,25 @@ class HandlerService implements HandlerServiceInterface
     {
     }
 
+    private function getRounds(): void
+    {
+        $rounds = $this->gameService->rounds();
+        DB::table('rounds')->truncate();
+        /** @var RoundDto $round */
+        foreach ($rounds as $round) {
+            Round::create([
+                'name' => $round->getName(),
+                'start_at' => Carbon::make($round->getStartAt()),
+                'end_at' => Carbon::make($round->getEndAt()),
+                'is_current' => $round->isCurrent(),
+                'planet_count' => $round->getPlanetCount(),
+            ]);
+        }
+    }
+
     public function getCurrentRound(): ?RoundDto
     {
+        $this->getRounds();
         /** @var Round $round */
         $round = Round::where('is_current', true)->first();
         return $round?->toDto();

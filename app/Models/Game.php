@@ -30,7 +30,7 @@ class Game extends Model
         return new GameDto(
             $this->id,
             $this->round_id,
-            $this->universe_fetched
+            $this->universe_fetched ?? false
         );
     }
 }
