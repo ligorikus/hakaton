@@ -11,7 +11,8 @@ class UniverseBuilder
 {
     public static function build(array $response): UniverseDto
     {
-        $name = $response['name'];
+
+        $name = $response['name'] ?? '';
         $edges = static::buildEdges($response['universe']);
         $ship = static::buildShip($response['ship']);
 

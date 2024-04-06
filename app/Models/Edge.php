@@ -16,4 +16,9 @@ class Edge extends Model
     ];
 
     public $timestamps = false;
+
+    public function planets()
+    {
+        return $this->hasMany(Planet::class, 'name', 'destination');
+    }
 }

@@ -104,7 +104,10 @@ class GarbageCollectorService implements GarbageCollectorInterface
     {
         $shipGarbage811 = $this->shipGarbage811($shipGarbage);
         $this->recursiveLoad($planetGarbage, $shipGarbage, $shipGarbage811);
-        $this->print811($shipGarbage811);
+        return [
+            'planetGarbage' => $planetGarbage,
+            'shipGarbage' => $shipGarbage
+        ];
     }
 
     public function recursiveLoad(&$planetGarbage, &$shipGarbage, &$shipGarbage811)
@@ -192,7 +195,7 @@ class GarbageCollectorService implements GarbageCollectorInterface
         ];
     }
 
-    public function calcZagruzka($sg811)
+    public function calcZagruzka($sg811): int
     {
         $sum = 0;
         foreach ($sg811 as $row) {

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Jobs\GameJob;
+use App\Jobs\ProcessJob;
 use App\Services\Api\GameService;
 use App\Services\Api\Interfaces\GameServiceInterface;
 use App\Services\GarbageCollector\GarbageCollectorService;
@@ -36,6 +37,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bindMethod([GameJob::class, 'handle'], function (GameJob $job, Application $app) {
             return $job->handle(
                 $app->make(HandlerServiceInterface::class)
+            );
+        });
+
+
+        $this->app->bindMethod([ProcessJob::class, 'handle'], function (ProcessJob $job, Application $app) {
+            return $job->handle(
+                $app->make(GameServiceInterface::class),
+                $app->make(HandlerServiceInterface::class),
+                $app->make(GarbageCollectorInterface::class),
             );
         });
     }

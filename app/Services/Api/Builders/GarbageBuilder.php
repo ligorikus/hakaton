@@ -16,6 +16,7 @@ class GarbageBuilder
             );
             $item->toDB();
             $result[] = $item;
+            $item->toDB();
         }
         return $result;
     }
